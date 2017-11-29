@@ -83,7 +83,7 @@ public class DetailActivity extends AppCompatActivity {
 
 
 
-            if(findViewById(R.id.container2)!= null){
+            if(findViewById(R.id.container3)!= null){
                 mTabletMode = true;
                 // note this is the problem always is exceuted even in phone mode
                 Toast.makeText(getApplicationContext(),"in tablet",Toast.LENGTH_SHORT).show();

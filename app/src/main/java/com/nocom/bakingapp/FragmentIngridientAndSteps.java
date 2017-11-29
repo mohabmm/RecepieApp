@@ -150,13 +150,13 @@ public class FragmentIngridientAndSteps extends Fragment {
 
                             ((FragmentActivity) getContext()).getSupportFragmentManager().beginTransaction()
                                     //.r(FragmentIngridientAndSteps.this)
-                                    .replace(R.id.container2, fragmentDetailedSteps)
+                                    .replace(R.id.container3, fragmentDetailedSteps)
                                     .addToBackStack(null)
                                     .commit();
                         }
                         else{
 
-                            Toast.makeText(getContext(), "not tablet", Toast.LENGTH_SHORT).show();
+                            Toast.makeText(getContext(), "not tablet in fragemnt ", Toast.LENGTH_SHORT).show();
                             String describtion = listItems2.get(finalI).getNdescripsion();
                             String shortdesc = listItems2.get(finalI).getNshortDescription();
                             int number = listItems2.get(finalI).getNumber();
