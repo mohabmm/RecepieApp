@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView  xmlns:app="http://schemas.android.com/apk/res-auto"
+
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/scroll"
+    android:layout_width="match_parent"
+    android:fillViewport="true"
+
+    android:layout_height="match_parent">
+
+<RelativeLayout
+
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+
+    <com.google.android.exoplayer2.ui.SimpleExoPlayerView
+        android:id="@+id/playerView"
+        android:layout_width="match_parent"
+        android:layout_height="200dp"
+        android:visibility="invisible"
+        app:layout_constraintTop_toTopOf="parent"
+
+        android:layout_marginTop="0dp"
+        android:layout_marginRight="0dp"
+        app:layout_constraintRight_toRightOf="parent"
+        android:layout_marginBottom="0dp"
+        android:layout_marginLeft="0dp"
+        app:layout_constraintLeft_toLeftOf="parent" />
+
+
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/desc"
+
+
+        android:paddingTop="10dp"
+        android:paddingLeft="8dp"
+
+        android:layout_below="@+id/playerView"
+        android:text="@string/hello_blank_fragment" />
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:paddingTop="20dp"
+        android:paddingLeft="8dp"
+        android:id="@+id/shortdesc"
+        android:layout_below="@id/desc"
+        android:text="a7a" />
+
+    <Button
+        android:text="@string/next_step"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentStart="true"
+        android:layout_marginStart="36dp"
+        android:layout_marginBottom="56dp"
+        android:id="@+id/bunexttton" />
+
+    <Button
+        android:text="@string/previouse_step"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignBottom="@+id/bunexttton"
+        android:layout_toEndOf="@+id/bunexttton"
+        android:layout_marginStart="82dp"
+        android:id="@+id/previouse" />
+
+
+</RelativeLayout>
+</ScrollView>

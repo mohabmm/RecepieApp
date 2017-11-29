@@ -1,0 +1,129 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView  xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/scroll"
+    android:layout_width="match_parent"
+    android:fillViewport="true"
+
+    android:layout_height="match_parent">
+
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent" android:layout_height="wrap_content"
+    android:orientation="vertical">
+
+
+    <Button
+        android:text="Ingredients"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/ingrdientbutton" />
+
+    <android.support.v7.widget.RecyclerView
+        android:layout_width="match_parent"
+        android:id="@id/mrecycle"
+        android:layout_height="wrap_content">
+
+    </android.support.v7.widget.RecyclerView>
+
+
+    <Button
+        android:visibility="invisible"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/moha2" />
+
+
+    <Button
+        android:visibility="invisible"
+
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/moha3" />
+
+    <Button
+        android:visibility="invisible"
+
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/moah4" />
+
+    <Button
+        android:visibility="invisible"
+
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/moha5" />
+
+    <Button
+        android:visibility="invisible"
+
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/moha6" />
+
+    <Button
+        android:visibility="invisible"
+
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/moha7" />
+
+    <Button
+        android:visibility="invisible"
+
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/moha8" />
+
+    <Button
+        android:visibility="invisible"
+
+        android:layout_width="match_parent"
+        android:id="@+id/moha9"
+        android:layout_height="wrap_content"
+         />
+
+    <Button
+        android:visibility="invisible"
+
+        android:layout_width="match_parent"
+        android:id="@+id/moha10"
+        android:layout_height="wrap_content"
+        />
+
+    <Button
+        android:visibility="invisible"
+
+        android:layout_width="match_parent"
+        android:id="@+id/moha11"
+        android:layout_height="wrap_content"
+        />
+
+    <Button
+        android:visibility="invisible"
+
+        android:layout_width="match_parent"
+        android:id="@+id/moha12"
+        android:layout_height="wrap_content"
+        />
+
+    <Button
+        android:visibility="invisible"
+
+        android:layout_width="match_parent"
+        android:id="@+id/moha13"
+        android:layout_height="wrap_content"
+        />
+
+    <Button
+        android:visibility="invisible"
+
+        android:layout_width="match_parent"
+        android:id="@+id/moha14"
+        android:layout_height="wrap_content"
+        />
+
+
+</LinearLayout>
+    </ScrollView>
