@@ -11,11 +11,13 @@ public class Steps implements Parcelable{
     String ndescripsion;
     String nurl;
     int number ;
-    public Steps(String shortDescription, String descripsion, String url, int nid) {
+    String imageurl;
+    public Steps(String shortDescription, String descripsion, String url, int nid,String nimage) {
         nshortDescription=shortDescription;
         ndescripsion=descripsion;
         nurl=url;
         number = nid;
+        imageurl=nimage;
     }
 
     protected Steps(Parcel in) {
@@ -23,6 +25,7 @@ public class Steps implements Parcelable{
         ndescripsion = in.readString();
         nurl = in.readString();
         number = in.readInt();
+        imageurl=in.readString();
     }
 
     @Override
@@ -31,6 +34,7 @@ public class Steps implements Parcelable{
         dest.writeString(ndescripsion);
         dest.writeString(nurl);
         dest.writeInt(number);
+        dest.writeString(imageurl);
     }
 
     @Override
@@ -65,6 +69,11 @@ public class Steps implements Parcelable{
     public String getNurl() {
         return nurl;
     }
+
+    public String getImageurl (){
+        return imageurl;
+    }
+
 
     public int getNumber() {
         return number;

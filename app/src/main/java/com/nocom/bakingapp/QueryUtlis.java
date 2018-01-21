@@ -148,13 +148,14 @@ public final class QueryUtlis {
                     JSONObject firststep = steps.getJSONObject(k);
                     String shortDescription = firststep.getString("shortDescription"); // descripsion short from the steps
                     String descripsion = firststep.getString("description"); // full descripsion of the rcipe
-                    String url = firststep.getString("videoURL");
+                    String vidiourl = firststep.getString("videoURL");
+                    String imageurl = firststep.getString("thumbnailURL");
                     int nid = firststep.getInt("id");
 
                     Log.i("short description", shortDescription);
                     Log.i(" description", descripsion);
-                    Log.i(" url", url);
-                    Steps step = new Steps(shortDescription,descripsion,url,nid);
+                    Log.i(" url", vidiourl);
+                    Steps step = new Steps(shortDescription,descripsion,vidiourl,nid,imageurl);
                     asteps.add(step);
                 }
                 Recipe recipe = new Recipe(image,id,name,ingr, asteps);

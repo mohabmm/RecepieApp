@@ -140,7 +140,17 @@ public class FragmentIngridientAndSteps extends Fragment {
                                 String url = listItems2.get(finalI).getNurl();
                                 args.putString("url", url);
                             }
+
+
+
+                            if (listItems2.get(finalI).getImageurl() != null) {
+                                String imageurl = listItems2.get(finalI).getImageurl();
+                                args.putString("imageurl", imageurl);
+                            }
+
+                            // work fro  here           ldfddfdfdfjdfjdfjdfdfdfjdkfjdkfjdkfjdkfjdkfjdf
                             args.putString("YourKey", describtion);
+
                             args.putString("mohasa", shortdesc);
                             args.putInt("mmm", number);
                             args.putParcelableArrayList("stepsarraylist", listItems2);

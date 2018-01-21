@@ -2,12 +2,14 @@ package com.nocom.bakingapp;
 
 import android.net.Uri;
 import android.os.Bundle;
+import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -29,10 +31,12 @@ import com.google.android.exoplayer2.trackselection.TrackSelector;
 import com.google.android.exoplayer2.ui.SimpleExoPlayerView;
 import com.google.android.exoplayer2.upstream.BandwidthMeter;
 import com.google.android.exoplayer2.upstream.DefaultHttpDataSourceFactory;
+import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
 
 import static android.content.ContentValues.TAG;
+import static com.squareup.picasso.Picasso.with;
 
 /**
  * Created by Moha on 11/18/2017.
@@ -41,6 +45,8 @@ import static android.content.ContentValues.TAG;
 public class FragmentDetailedSteps extends Fragment implements ExoPlayer.EventListener {
 
 
+    String url;
+    ImageView imageView;
     int postion;
     TextView descText;
     TextView shortDesc;
@@ -49,6 +55,15 @@ public class FragmentDetailedSteps extends Fragment implements ExoPlayer.EventLi
     Button previouse;
     Button next;
     Boolean mTablet;
+    private long playbackpostion;
+    private int currentwindow;
+    private boolean playwhenready ;
+
+
+
+
+//   long playerPosition = mExoPlayer.getCurrentPosition();
+
 
 
     ArrayList<? extends Steps> listitems;
@@ -59,9 +74,16 @@ public class FragmentDetailedSteps extends Fragment implements ExoPlayer.EventLi
         final View view = inflater.inflate(R.layout.fragment_steps, container, false);
 
 
-        descText = (TextView) view.findViewById(R.id.desc);
 
-        shortDesc = (TextView) view.findViewById(R.id.shortdesc);
+
+
+
+
+
+
+     descText = (TextView) view.findViewById(R.id.desc);
+
+       // shortDesc = (TextView) view.findViewById(R.id.shortdesc);
         mPlayerView = (SimpleExoPlayerView) view.findViewById(R.id.playerView);
         String value = getArguments().getString("YourKey");
         String yy = getArguments().getString("mohasa");
@@ -72,7 +94,8 @@ public class FragmentDetailedSteps extends Fragment implements ExoPlayer.EventLi
 
         listitems = getArguments().getParcelableArrayList("stepsarraylist");
 
-       // Toast.makeText(getContext(),String.valueOf(listitems.size()),Toast.LENGTH_SHORT).show();
+
+        imageView = (ImageView)view.findViewById(R.id.image);
 
 
 
@@ -84,15 +107,49 @@ public class FragmentDetailedSteps extends Fragment implements ExoPlayer.EventLi
 
            String url = getArguments().getString("url");
 
-            mplayer(url);
+            insialisemyplayer(url);
 
             mPlayerView.setVisibility(View.VISIBLE);
         }
-        else {
+        else if (getArguments().get("imageurl")!=null){
 
-            mPlayerView.setVisibility(View.INVISIBLE);
+
+            imageView.setVisibility(View.VISIBLE);
+            with(this.getContext())
+                    .load(getArguments().getString("imageurl"))
+                    .placeholder(R.drawable.nutella)
+                    .resize(6000, 2000)
+                    .onlyScaleDown()
+                    .into(this.imageView);
+
+
+
+
+
 
         }
+
+        else{
+
+            // load here place holder image using picasso
+
+
+            imageView.setVisibility(View.VISIBLE);
+            Picasso
+                    .with(this.getContext())
+                    .load(R.drawable.brownies)
+                    .resize(6000, 2000)
+                    .onlyScaleDown()
+                    .into(this.imageView);
+
+
+
+
+
+        }
+
+
+
 
 
 
@@ -102,6 +159,8 @@ public class FragmentDetailedSteps extends Fragment implements ExoPlayer.EventLi
         next.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+
+                releasePlayer();
 
                 if(postion < (listitems.size()-1)) {
 
@@ -113,7 +172,7 @@ public class FragmentDetailedSteps extends Fragment implements ExoPlayer.EventLi
                     if (url != null) {
 
                         mPlayerView.setVisibility(View.VISIBLE);
-                        mplayer(url);
+                        insialisemyplayer(url);
                     } else {
 
                         mPlayerView.setVisibility(View.INVISIBLE);
@@ -141,16 +200,18 @@ public class FragmentDetailedSteps extends Fragment implements ExoPlayer.EventLi
             @Override
             public void onClick(View v) {
 
+                releasePlayer();
+
                 if(postion > 0) {
                     postion -= 1;
                     String desc = listitems.get(postion).getNdescripsion();
-                    String url = listitems.get(postion).getNurl();
+                     url = listitems.get(postion).getNurl();
                   //  String shortd = listitems.get(postion).getNshortDescription();
                     if (url != null) {
 
                         mPlayerView.setVisibility(View.VISIBLE);
 
-                        mplayer(url);
+                        insialisemyplayer(url);
                     }
                     else {
 
@@ -192,8 +253,43 @@ public class FragmentDetailedSteps extends Fragment implements ExoPlayer.EventLi
 
 
 
+@Override
+    public void onSaveInstanceState(Bundle outState) {
+        super.onSaveInstanceState(outState);
+        // Saved all necesary values
 
-    public void mplayer(String url){
+        outState.putLong("playerpostion", playbackpostion);
+        outState.putInt("currentwindow", currentwindow);
+        outState.putBoolean("playwhenready",playwhenready);
+        // More code
+    }
+
+
+
+    @Override
+    public void onActivityCreated(@Nullable Bundle savedInstanceState) {
+        super.onActivityCreated(savedInstanceState);
+        if(savedInstanceState!=null){
+
+            Toast.makeText(getContext(), "a7aaaainstates", Toast.LENGTH_SHORT).show();
+
+            playbackpostion= savedInstanceState.getLong("playerpostion");
+            currentwindow=savedInstanceState.getInt("currentwindow");
+            playwhenready=savedInstanceState.getBoolean("playwhenready");
+
+
+            mExoPlayer.setPlayWhenReady(playwhenready);
+            mExoPlayer.seekTo(currentwindow, playbackpostion);
+
+        }
+
+    }
+
+
+
+
+
+    public void insialisemyplayer (String url){
 
 
         BandwidthMeter bandwidthMeter = new BandwidthMeter() {
@@ -220,11 +316,21 @@ public class FragmentDetailedSteps extends Fragment implements ExoPlayer.EventLi
             mExoPlayer.setPlayWhenReady(true);
 
 
-        }
+
+
+
+    }
 
 
 
 
+    @Override
+    public void onResume() {
+        super.onResume();
+      startPlayer();
+
+
+    }
 
 
 
@@ -235,10 +341,42 @@ public class FragmentDetailedSteps extends Fragment implements ExoPlayer.EventLi
 
     }
 
+    @Override
+    public void onPause() {
+        super.onPause();
+        releasePlayer();
+
+
+    }
+
+    @Override
+    public void onStop() {
+        super.onStop();
+        releasePlayer();
+
+    }
+
+
+
+
+    private void startPlayer(){
+       // mExoPlayer.setPlayWhenReady(true);
+
+     mExoPlayer.setPlayWhenReady(playwhenready);
+        mExoPlayer.seekTo(currentwindow, playbackpostion);
+        mExoPlayer.getPlaybackState();
+    }
+
+
+
     private void releasePlayer() {
-        mExoPlayer.stop();
-        mExoPlayer.release();
-        //mExoPlayer = null;
+        if (mExoPlayer != null) {
+            playbackpostion = mExoPlayer.getCurrentPosition();
+            currentwindow = mExoPlayer.getCurrentWindowIndex();
+            playwhenready = mExoPlayer.getPlayWhenReady();
+            mExoPlayer.release();
+            mExoPlayer = null;
+        }
     }
 
     @Override
@@ -283,5 +421,10 @@ public class FragmentDetailedSteps extends Fragment implements ExoPlayer.EventLi
     public void onPlaybackParametersChanged(PlaybackParameters playbackParameters) {
 
     }
+
+
+
+
+
 }
 
